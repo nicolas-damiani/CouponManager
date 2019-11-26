@@ -1,0 +1,43 @@
+<%= form_with(url: "/promotions", method: :get, local: true  ) do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name, autofocus: true %>
+  <br/>
+  <%= form.label :coupon_code %>
+  <%= form.text_field :coupon_code, autofocus: true %>
+  <br/>
+  <%= form.label :active %>
+  <select name="active" id="active">
+    <option value="" selected="selected">Any</option>
+    <option value="true">Active</option>
+    <option value="false">Inactive</option>
+  </select>
+  <br/>
+  <%= form.label :promotion_type %>
+  <select name="promotion_type" id="promotion_type">
+    <option value="" selected="selected">Any</option>
+    <option value="0" >Discount</option>
+    <option value="1">Coupon</option>
+  </select>
+  <br/>
+  <%= form.submit 'Submit', class: 'submit btn btn-primary' %>
+<% end %>
+
+
+
+<h1>Promotions</h1>
+<ul  class="list-group">
+<% @promotions.each do |promotion| %>
+<li class="list-group-item">
+ <h4>Name: <%= promotion.name %></h4><br>
+ <h4>Type: <%= promotion.promotion_type==0 ? "Discount" : "Coupon"%></h4><br>
+ <h4><%= promotion.active ? "Active" : "Inactive"%></h4><br>
+      <%= link_to 'Details', promotion,:class => "btn btn-primary" %>
+      <%= link_to 'Report', controller: :promotions, action: :report, :id => promotion.id , :class => "btn btn-primary"%>
+      <% if :check_admin %>
+     <%= link_to 'Edit', edit_promotion_path(promotion), method: "get",:class => "btn btn-warning" %>
+     <%= link_to 'Destroy', promotion,  method: :delete, data: { confirm: 'Are you sure?' },:class => "btn btn-danger" %>
+      <% end %>
+    <br>
+    </li>
+<% end %>
+</ul>
