@@ -15,11 +15,11 @@ class ApplicationController < ActionController::Base
   end
 
   def is_org?
-    redirect_to '' unless current_user.role == 2
+    redirect_to '' unless (current_user.role == 2 || current_user.role == 0)
   end
 
   def is_fin?
-    redirect_to '' unless current_user.role == 3
+    redirect_to '' unless (current_user.role == 3 || current_user.role == 0)
   end
 
   def is_admin?

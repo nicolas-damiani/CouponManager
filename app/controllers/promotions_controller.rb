@@ -5,7 +5,9 @@ require 'json'
 class PromotionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:testToken, :evaluate]
   skip_before_action :authenticate_user!, only: [:evaluate, :testToken, :report_rest]
-  before_action :is_admin? , only: [:new, :create, :destroy, :edit, :update, :authorizationCodes, :getCode, :viewReport]
+  before_action :is_admin? , only: [:new, :create, :destroy, :edit, :update, :authorizationCodes, :getCode]
+  before_action :is_org? , only: [:viewReport]
+  before_action :is_fin? , only: [:report]
 
   def new
     logger.info 'new promotion'
@@ -24,7 +26,7 @@ class PromotionsController < ApplicationController
     end
   end
 
-  def viewReport()
+  def viewReport
     response = RestClient.get 'https://coupon-reports-service.herokuapp.com/reports'
     if response.code == 200
         @report = response
