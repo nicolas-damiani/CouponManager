@@ -49,11 +49,11 @@ ActiveRecord::Schema.define(version: 2019_11_23_223701) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "condition"
-    t.bigint "organization_id", null: false
     t.integer "total_requests", default: 0
     t.integer "total_response_time", default: 0
     t.integer "positive_response", default: 0
     t.integer "negative_response", default: 0
+    t.bigint "organization_id", null: false
     t.integer "total_spent", default: 0
     t.datetime "limit_time"
     t.index ["organization_id"], name: "index_promotions_on_organization_id"
@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(version: 2019_11_23_223701) do
   create_table "user_coupon_codes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id"
     t.bigint "coupon_use_id"
+    t.bigint "user_id"
     t.index ["coupon_use_id"], name: "index_user_coupon_codes_on_coupon_use_id"
   end
 
